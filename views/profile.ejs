@@ -1,0 +1,86 @@
+<%- include('partials/header') %>
+<div class="dashboard-wrapper d-flex">
+  <%- include('partials/sidebar', { user: user }) %>
+  <main class="main-content flex-grow-1 d-flex justify-content-center align-items-start" style="background: #f8f9fb; min-height: 100vh;">
+    <div class="w-100" style="max-width: 600px; min-width: 320px; min-height: 400px; margin: 7rem auto 0 auto;">
+      <div class="card shadow rounded-4">
+        <div class="card-header d-flex justify-content-between align-items-center bg-white border-bottom-0" style="padding-bottom: 0;">
+          <h3 class="mb-0">My Profile</h3>
+          <a href="/profile/edit" class="btn btn-primary btn-sm">Edit Profile</a>
+        </div>
+        <div class="card-body overflow-auto">
+          <% if (subtle && subtle.length > 0) { %>
+            <div class="text-success mb-2" style="font-size: 1rem;"><%= subtle %></div>
+          <% } %>
+          <% if (incomplete) { %>
+            <div class="text-warning mb-2" style="font-size: 1rem;">
+              <strong>Your profile is incomplete!</strong>
+              Please complete: <%= missingFields.join(', ') %>
+            </div>
+          <% } %>
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <div class="col">
+              <strong>Name:</strong> <%= user.firstName %> <%= user.lastName %>
+            </div>
+            <div class="col">
+              <strong>Email:</strong> <%= user.email %>
+            </div>
+            <div class="col">
+              <strong>Phone:</strong> <%= user.phoneNumber || '-' %>
+            </div>
+            <div class="col">
+              <strong>Gender:</strong> <%= user.gender || '-' %>
+            </div>
+            <div class="col">
+              <strong>Date of Birth:</strong> <%= user.dateOfBirth ? user.dateOfBirth.toISOString().substring(0,10) : '-' %>
+            </div>
+            <div class="col">
+              <strong>Role:</strong> <span class="badge bg-info text-dark"><%= user.role %></span>
+            </div>
+            <div class="col-12">
+              <strong>Address:</strong>
+              <%= user.address?.street || '' %> <%= user.address?.city || '' %> <%= user.address?.state || '' %> <%= user.address?.country || '' %> <%= user.address?.zipCode || '' %>
+            </div>
+          </div>
+          <% if (user.role === 'student') { %>
+            <hr>
+            <h5>Student Details</h5>
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+              <div class="col"><strong>Enrollment Number:</strong> <%= user.studentDetails?.enrollmentNumber || '-' %></div>
+              <div class="col"><strong>Course:</strong> <%= user.studentDetails?.courseName || '-' %></div>
+              <div class="col"><strong>Department:</strong> <%= user.studentDetails?.department || '-' %></div>
+              <div class="col"><strong>Year/Semester:</strong> <%= user.studentDetails?.year || '-' %> / <%= user.studentDetails?.semester || '-' %></div>
+              <div class="col"><strong>Guardian Name:</strong> <%= user.studentDetails?.guardianName || '-' %></div>
+              <div class="col"><strong>Guardian Contact:</strong> <%= user.studentDetails?.guardianContact || '-' %></div>
+              <div class="col"><strong>Hostel Resident:</strong> <%= user.studentDetails?.isHostelResident ? 'Yes' : 'No' %></div>
+              <div class="col"><strong>Scholarship:</strong> <%= user.studentDetails?.hasScholarship ? 'Yes' : 'No' %></div>
+            </div>
+          <% } %>
+          <% if (user.role === 'staff') { %>
+            <hr>
+            <h5>Staff Details</h5>
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+              <div class="col"><strong>Employee ID:</strong> <%= user.staffDetails?.employeeId || '-' %></div>
+              <div class="col"><strong>Department:</strong> <%= user.staffDetails?.department || '-' %></div>
+              <div class="col"><strong>Designation:</strong> <%= user.staffDetails?.designation || '-' %></div>
+              <div class="col"><strong>Date of Joining:</strong> <%= user.staffDetails?.dateOfJoining ? user.staffDetails.dateOfJoining.toISOString().substring(0,10) : '-' %></div>
+              <div class="col"><strong>Subjects Assigned:</strong> <%= user.staffDetails?.subjectsAssigned?.join(', ') || '-' %></div>
+              <div class="col"><strong>Salary:</strong> <%= user.staffDetails?.salary || '-' %></div>
+            </div>
+          <% } %>
+          <% if (user.role === 'admin') { %>
+            <hr>
+            <h5>Admin Details</h5>
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+              <div class="col"><strong>Employee ID:</strong> <%= user.adminDetails?.employeeId || '-' %></div>
+              <div class="col"><strong>Department:</strong> <%= user.adminDetails?.department || '-' %></div>
+              <div class="col"><strong>Office Room Number:</strong> <%= user.adminDetails?.officeRoomNumber || '-' %></div>
+              <div class="col"><strong>Access Level:</strong> <%= user.adminDetails?.accessLevel || '-' %></div>
+              <div class="col-12"><strong>Responsibilities:</strong> <%= user.adminDetails?.responsibilities?.join(', ') || '-' %></div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </main>
+</div> 

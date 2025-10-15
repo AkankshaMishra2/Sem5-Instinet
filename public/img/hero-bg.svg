@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a5d9f;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#2d3748;stop-opacity:0.95" />
+    </linearGradient>
+    <pattern id="pattern1" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="30" height="30" fill="url(#grad1)"/>
+      <rect width="15" height="15" fill="rgba(255,255,255,0.03)"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grad1)" />
+  <rect width="100%" height="100%" fill="url(#pattern1)" opacity="0.4" />
+  <rect width="100%" height="100%" fill="url(#grad1)" opacity="0.2" />
+</svg>

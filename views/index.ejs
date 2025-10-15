@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - InstiNet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('./partials/header', {user: typeof user !== 'undefined' ? user : undefined}) %>
+    
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content animate__animated animate__fadeIn">
+                <h1 class="animate__animated animate__fadeInDown animate__delay-1s">Welcome to InstiNet</h1>
+                <p class="animate__animated animate__fadeInUp animate__delay-1s">Empowering students with knowledge and skills for a better future. Join our community of learners today.</p>
+                <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="/login" class="btn btn-primary">Login</a>
+                    <a href="/register" class="btn btn-outline">Register</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="announcement-banner">
+        <div class="container">
+            <div class="animate__animated animate__fadeIn">
+                <h3><i class="fas fa-bullhorn"></i> Now accepting applications for Fall 2025 semester! <a href="/register" class="banner-link">Apply Now</a></h3>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Why Choose InstiNet?</h2>
+            <div class="features-grid">
+                <div class="feature-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <i class="fas fa-graduation-cap fa-3x"></i>
+                    <h3>Quality Education</h3>
+                    <p>Our institution provides quality education with expert faculty and modern teaching methodologies.</p>
+                </div>
+                <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <i class="fas fa-laptop-code fa-3x"></i>
+                    <h3>Modern Curriculum</h3>
+                    <p>Stay ahead with our industry-aligned curriculum updated with the latest technologies and practices.</p>
+                </div>
+                <div class="feature-card animate__animated animate__fadeInUp animate__delay-3s">
+                    <i class="fas fa-users fa-3x"></i>
+                    <h3>Supportive Community</h3>
+                    <p>Join a community of like-minded individuals that supports and encourages growth and innovation.</p>
+                </div>
+                <div class="feature-card animate__animated animate__fadeInUp animate__delay-4s">
+                    <i class="fas fa-briefcase fa-3x"></i>
+                    <h3>Career Support</h3>
+                    <p>Get guidance and support for your career with our dedicated placement cell and industry connections.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">What Our Students Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <div class="testimonial-image">
+                        <img src="/images/student1.jpg" alt="Student Testimonial">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"InstiNet has transformed my career prospects with their cutting-edge curriculum and supportive faculty. I landed my dream job right after graduation!"</p>
+                        <h4>Sarah Johnson</h4>
+                        <p class="testimonial-designation">Computer Science Graduate, 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Featured Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card animate__animated animate__fadeInUp">
+                    <div class="course-img">
+                        <img src="/images/cs-course.jpg" alt="Computer Science">
+                    </div>
+                    <div class="course-content">
+                        <h3>Computer Science</h3>
+                        <p>Learn the fundamentals of computer science, algorithms, data structures, and software development.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="course-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="course-img">
+                        <img src="/images/it-course.jpg" alt="Information Technology">
+                    </div>
+                    <div class="course-content">
+                        <h3>Information Technology</h3>
+                        <p>Study modern IT infrastructure, networking, database management, and system administration.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="course-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="course-img">
+                        <img src="/images/electronics-course.jpg" alt="Electronics Engineering">
+                    </div>
+                    <div class="course-content">
+                        <h3>Electronics Engineering</h3>
+                        <p>Explore the world of electronics, circuit design, embedded systems, and signal processing.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content animate__animated animate__fadeIn">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join InstiNet today and take the first step towards a successful career in technology.</p>
+                <a href="/register" class="btn btn-primary">Apply Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <%- include('./partials/footer') %>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Simple scroll animation
+        $(window).scroll(function() {
+            let scroll = $(window).scrollTop();
+            
+            // Add animation classes to elements when they come into view
+            $('.animate__animated:not(.animate__animated--triggered)').each(function() {
+                let elementTop = $(this).offset().top;
+                let windowHeight = $(window).height();
+                
+                if (scroll > elementTop - windowHeight + 100) {
+                    $(this).addClass('animate__animated--triggered');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

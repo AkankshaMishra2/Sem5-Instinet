@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<div class="container mt-5">
+  <h2>Announcements</h2>
+  <div class="row">
+    <% announcements.forEach(a => { %>
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= a.title %></h5>
+            <p class="card-text"><%= a.message.substring(0, 100) %>...</p>
+            <a href="/announcements/<%= a._id %>" class="btn btn-outline-primary btn-sm">Read More</a>
+            <div class="text-muted small mt-2">By <%= a.createdBy.name %> (<%= a.createdBy.role %>) on <%= a.createdAt.toLocaleString() %></div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>

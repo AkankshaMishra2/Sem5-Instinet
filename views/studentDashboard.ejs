@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - InstiNet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('./partials/header', {user: user}) %>
+    
+    <div class="dashboard-layout">
+        <%- include('./partials/sidebar', {user: user}) %>
+        
+        <div class="dashboard-content">
+            <div class="welcome-banner">
+                <div class="welcome-message">
+                    <h1>Welcome back, <%= user.firstName %>!</h1>
+                    <p>Here's your learning summary for today - <%= new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-outline"><i class="fas fa-book"></i> Browse Courses</button>
+                    <button class="btn btn-outline"><i class="fas fa-calendar-alt"></i> My Calendar</button>
+                </div>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book fa-2x"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>4</h3>
+                        <p>Enrolled Courses</p>
+                    </div>
+                    <div class="stat-indicator positive">
+                        <i class="fas fa-arrow-up"></i> 1 new
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warning">
+                        <i class="fas fa-tasks fa-2x"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>8</h3>
+                        <p>Pending Assignments</p>
+                    </div>
+                    <div class="stat-indicator negative">
+                        <i class="fas fa-arrow-up"></i> 2 this week
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon success">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>85%</h3>
+                        <p>Average Grade</p>
+                    </div>
+                    <div class="stat-indicator positive">
+                        <i class="fas fa-arrow-up"></i> 3% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon info">
+                        <i class="fas fa-calendar-alt fa-2x"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>3</h3>
+                        <p>Upcoming Events</p>
+                    </div>
+                    <div class="stat-indicator">
+                        <span class="highlight">This week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div id="courses-section" class="dashboard-section">
+                    <div class="dashboard-section-header">
+                        <h2 class="dashboard-section-title">My Courses</h2>
+                        <div class="section-actions">
+                            <select class="select-filter">
+                                <option value="all">All Courses</option>
+                                <option value="progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-sort"></i> Sort</button>
+                        </div>
+                    </div>
+                    
+                    <div class="course-cards-container row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <% courses.forEach(course => { %>
+                            <div class="col">
+                                <div class="course-card card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= course.courseName %></h5>
+                                        <p class="card-text"><%= course.description %></p>
+                                        <span class="badge bg-info"><%= course.code %></span>
+                                        <div class="course-instructor"><%= course.instructor %></div>
+                                        <div class="course-schedule"><i class="fas fa-clock"></i> <%= course.schedule %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+                
+                <div id="upcoming-section" class="dashboard-section">
+                    <div class="dashboard-section-header">
+                        <h2 class="dashboard-section-title">Upcoming Deadlines</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-sync-alt"></i> Refresh</button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                <span class="day">18</span>
+                                <span class="month">APR</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Algorithm Analysis Quiz</h4>
+                                <p>Data Structures - Prof. Johnson</p>
+                                <span class="badge urgent">Due Tomorrow</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                <span class="day">20</span>
+                                <span class="month">APR</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>JavaScript Project Submission</h4>
+                                <p>Web Development - Dr. Williams</p>
+                                <span class="badge upcoming">Due in 3 days</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                <span class="day">22</span>
+                                <span class="month">APR</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Midterm Exam</h4>
+                                <p>Introduction to Programming - Dr. Smith</p>
+                                <span class="badge upcoming">Due in 5 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="grades-section" class="dashboard-section">
+                <div class="dashboard-section-header">
+                    <h2 class="dashboard-section-title">Recent Grades</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Export</button>
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-chart-pie"></i> Analytics</button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Assignment</th>
+                                <th>Submitted</th>
+                                <th>Grade</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table-course">
+                                        <div class="course-dot programming"></div>
+                                        <span>Introduction to Programming</span>
+                                    </div>
+                                </td>
+                                <td>Variables & Data Types Quiz</td>
+                                <td>Apr 10, 2025</td>
+                                <td><span class="grade excellent">90/100</span></td>
+                                <td class="table-actions">
+                                    <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                    <button class="action-btn" title="Download Feedback"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-course">
+                                        <div class="course-dot data-structures"></div>
+                                        <span>Data Structures</span>
+                                    </div>
+                                </td>
+                                <td>Linked List Implementation</td>
+                                <td>Apr 8, 2025</td>
+                                <td><span class="grade excellent">95/100</span></td>
+                                <td class="table-actions">
+                                    <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                    <button class="action-btn" title="Download Feedback"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-course">
+                                        <div class="course-dot web-dev"></div>
+                                        <span>Web Development</span>
+                                    </div>
+                                </td>
+                                <td>CSS Layout Project</td>
+                                <td>Apr 5, 2025</td>
+                                <td><span class="grade good">88/100</span></td>
+                                <td class="table-actions">
+                                    <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                    <button class="action-btn" title="Download Feedback"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-course">
+                                        <div class="course-dot database"></div>
+                                        <span>Database Management</span>
+                                    </div>
+                                </td>
+                                <td>SQL Basics Quiz</td>
+                                <td>Apr 2, 2025</td>
+                                <td><span class="grade excellent">92/100</span></td>
+                                <td class="table-actions">
+                                    <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                    <button class="action-btn" title="Download Feedback"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="announcements-section" class="dashboard-section">
+                <div class="dashboard-section-header">
+                    <h2 class="dashboard-section-title">Announcements</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-bell"></i> Manage Notifications</button>
+                    </div>
+                </div>
+                
+                <div class="announcements-list">
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <div class="announcement-info">
+                                <span class="announcement-badge important">Important</span>
+                                <h3 class="announcement-title">Spring Break Schedule Changes</h3>
+                            </div>
+                            <div class="announcement-meta">
+                                <span class="announcement-date">April 15, 2025</span>
+                            </div>
+                        </div>
+                        <div class="announcement-content">
+                            <p>Please note that all classes will be suspended during spring break (April 28 - May 2). Make-up classes will be scheduled for the following week.</p>
+                        </div>
+                        <div class="announcement-footer">
+                            <span class="announcement-source">From: Administration Office</span>
+                            <button class="btn btn-text">Read More</button>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <div class="announcement-info">
+                                <span class="announcement-badge event">Event</span>
+                                <h3 class="announcement-title">Tech Career Fair</h3>
+                            </div>
+                            <div class="announcement-meta">
+                                <span class="announcement-date">April 12, 2025</span>
+                            </div>
+                        </div>
+                        <div class="announcement-content">
+                            <p>Join us for the annual Tech Career Fair on May 5th. Over 30 companies will be present to discuss internship and job opportunities.</p>
+                        </div>
+                        <div class="announcement-footer">
+                            <span class="announcement-source">From: Career Services</span>
+                            <button class="btn btn-text">Read More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

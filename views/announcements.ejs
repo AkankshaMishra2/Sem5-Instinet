@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="container announcements-page" style="margin-top: 90px; margin-left: 280px; width: calc(100% - 280px); background: #f5f7fa; min-height: 100vh; padding-bottom: 40px; border-radius: 16px;">
+    <% if (success && success.length > 0) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    
+    <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Announcements</h2>
+        <% if (user.role === 'staff') { %>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
+                <i class="fas fa-plus"></i> Create Announcement
+            </button>
+        <% } %>
+    </div>
+
+    <div class="row justify-content-center" style="gap: 24px;">
+        <% if (announcements && announcements.length > 0) { %>
+            <% announcements.forEach(announcement => { %>
+                <div class="col-md-6 mb-5">
+                    <div class="card shadow h-100" style="border-radius: 18px; overflow: hidden; background: #fff;">
+                        <div class="card-body" style="padding: 2rem 1.5rem 1rem 1.5rem;">
+                            <h5 class="card-title" style="font-weight: 700; color: var(--primary-color); margin-bottom: 0.75rem;">
+                                <%= announcement.title %>
+                            </h5>
+                            <p class="card-text" style="color: #444; font-size: 1.05rem; margin-bottom: 1.2rem;">
+                                <%= announcement.message.substring(0, 150) %>...
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted" style="font-size: 0.95rem;">
+                                    By 
+                                    <% if (announcement.createdBy) { %>
+                                        <%= announcement.createdBy.firstName %> <%= announcement.createdBy.lastName %>
+                                        (<%= announcement.createdBy.role %>)
+                                    <% } else { %>
+                                        Unknown
+                                    <% } %>
+                                </small>
+                                <a href="/announcements/<%= announcement._id %>" class="btn btn-outline-primary btn-sm" style="border-radius: 20px; font-weight: 600;">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted" style="background: #f8f9fa; font-size: 0.95rem; border-top: 1px solid #eee;">
+                            <i class="far fa-calendar-alt me-1"></i> <%= new Date(announcement.createdAt).toLocaleDateString() %>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No announcements available at this time.
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- <%- include('partials/footer') %>  -->
